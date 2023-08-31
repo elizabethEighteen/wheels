@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // not standard
+      function throttle(fn, time) {
+        let start;
+
+        return function () {
+          let now = new Date().getTime();
+          if (!start) {
+            start = now;
+          }
+          if (now - start >= time) {
+            fn();
+            start = now;
+          }
+        };
+      }
+
+      throttle();
+
+      //   document.addEventListener(
+      //     "mousemove",
+      //     throttle(() => {
+      //       console.log("move");
+      //     }, 2000),
+      //     50
+      //   );
+
+      //
+
+      function debouce(fn, time) {
+        let timer;
+        return function () {
+          clearInterval(timer);
+          timer = setTimeout(() => {
+            fn();
+          }, time);
+        };
+      }
+      document.addEventListener(
+        "mousemove",
+        debouce(() => {
+          console.log("move");
+        }, 2000),
+        50
+      );
+    </script>
+  </body>
+</html>
